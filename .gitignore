@@ -130,3 +130,5 @@ dmypy.json
 
 # PyChar
 .idea/
+
+/PidroBot/data/

@@ -17,6 +17,6 @@ def stats(message, db: Database):
     answer = ''
     if df_statistic.empty:
         answer = constants.ERROR_EMPTY_STATS
-    for _, row in df_statistic.iterrows():
-        answer += row['user_name'] + '\t' + str(row['rating']) + '\n'
+    for n, row in df_statistic.iterrows():
+        answer += constants.ANSWER_STATS.format(number=n+1, username=row['user_name'], rating=str(row['rating'])) + '\n'
     return answer

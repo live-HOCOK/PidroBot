@@ -8,7 +8,7 @@ bot = telebot.TeleBot(constants.TOKEN)
 db = Database()
 
 
-@bot.message_handler(commands=['a'])
+@bot.message_handler(commands=['pidro'])
 def command_pidro(message):
     answer = pidro(message, db)
     bot.send_message(message.chat.id, answer)
