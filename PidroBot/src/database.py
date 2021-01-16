@@ -20,9 +20,8 @@ class Database:
         if self.df[self.df.chat_id == chat_id].empty:
             return result
         result = self.df[self.df.chat_id == chat_id]
-        self.order_df()
         self.save_db()
-        return result
+        return self.order_df(result)
 
     def save_db(self):
         if not os.path.exists('./data'):
@@ -33,6 +32,8 @@ class Database:
         if os.path.exists('./data') and os.path.isfile('./data/db.csv'):
             self.df = pd.read_csv('./data/db.csv', sep=';')
 
-    def order_df(self):
-        self.df = self.df.sort_values(['rating', 'user_name'], ascending=True)
-        self.df.reset_index(drop=True)
+    @staticmethod
+    def order_df(df):
+        result = df.sort_values(['rating', 'user_name'], ascending=False)
+        result = result.reset_index(drop=True)
+        return result
