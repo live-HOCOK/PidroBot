@@ -1,1 +1,1 @@
-web: python PidroBot.py
+worker: python PidroBot.py
