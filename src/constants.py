@@ -1,10 +1,10 @@
 import os
-from boto.s3.connection import S3Connection
 
 
 TOKEN = os.environ.get('PIDROBOT_TOKEN')
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-ANSWER_ADD_PIDRO = '{username} твой PIDRO-рейтинг {pidro}'
+ANSWER_ADD_PIDRO = '{username} твой PIDRO-рейтинг {rating}'
 ANSWER_STATS = '{number}. {username} - {rating} \n'
 
 ERROR_USERNAME_NOT_FOUND = 'В твоем сообщении мало смысла'
