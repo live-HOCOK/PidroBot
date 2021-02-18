@@ -1,3 +1,2 @@
-pandas==1.1.5
 pyTelegramBotAPI==3.7.5
-boto==2.49.0
+psycopg2-binary==2.8.6
