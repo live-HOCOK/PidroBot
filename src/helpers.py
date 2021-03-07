@@ -3,6 +3,8 @@ from . import constants
 
 
 def get_mention(message):
+    if not message.entities:
+        return None
     for entity in message.entities:
         if entity.type == 'mention':
             start_position = message.text.find('@')
