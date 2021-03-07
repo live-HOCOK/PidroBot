@@ -1,4 +1,4 @@
-from .helpers import get_mention
+from .helpers import get_mention, add_rating
 from .database import Database
 from . import constants
 
@@ -7,11 +7,7 @@ def pidro(message, db: Database):
     mention_user_name = get_mention(message)
     if not mention_user_name:
         return constants.ERROR_USERNAME_NOT_FOUND
-    db.add_user(mention_user_name, message.chat.id, message.chat.title)
-    db.add_pidro(mention_user_name, message.chat.id)
-    rating = db.get_user_rating(mention_user_name, message.chat.id)
-    answer = constants.ANSWER_ADD_PIDRO.format(username=mention_user_name, rating=rating.get('chat_rating', 0))
-    return answer
+    return add_rating(mention_user_name, message, db)
 
 
 def stats(message, db: Database):
@@ -24,3 +20,13 @@ def stats(message, db: Database):
         answer += constants.ANSWER_STATS.format(number=n, username=row['username'], rating=str(row['rating']))
         n += 1
     return answer
+
+
+def answer_all_mentions(message, db: Database):
+    mention_user_name = get_mention(message)
+    if not mention_user_name:
+        return None
+    parsed_text = message.text.replace(f'{mention_user_name} ', '')
+    for synonym in constants.SYNONYMS_PIDRO_COMMAND:
+        if parsed_text.lower() == synonym:
+            return add_rating(mention_user_name, message, db)
