@@ -19,13 +19,14 @@ class Database:
 
     def get_chat_stat(self, chat_id: str):
         result = []
-        self.cur.execute(f"select u.username, u.rating from public.users u, public.link_user_chat lu"
+        self.cur.execute(f"select u.username, u.rating, lu.chat_rating"
+                         f" from public.users u, public.link_user_chat lu"
                          f" where u.username = lu.username"
                          f" and lu.chat_id = {chat_id}"
                          f" order by u.rating desc;")
         rows = self.cur.fetchall()
         for row in rows:
-            user_stat = {'username': row[0], 'rating': row[1]}
+            user_stat = {'username': row[0], 'chat_rating': row[1], 'rating': row[2]}
             result.append(user_stat)
         return result
 

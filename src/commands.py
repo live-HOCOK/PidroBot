@@ -17,7 +17,12 @@ def stats(message, db: Database):
         answer = constants.ERROR_EMPTY_STATS
     n = 1
     for row in statistic:
-        answer += constants.ANSWER_STATS.format(number=n, username=row['username'], rating=str(row['rating']))
+        answer += constants.ANSWER_STATS.format(
+            number=n,
+            username=row['username'],
+            rating=str(row['chat_rating']),
+            global_rating=str(row['rating'])
+        )
         n += 1
     return answer
 
